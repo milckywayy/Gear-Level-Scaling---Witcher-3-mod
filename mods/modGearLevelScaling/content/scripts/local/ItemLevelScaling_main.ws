@@ -25,7 +25,6 @@ function scaleItemLevel(item : SItemUniqueId) : int
 {
 	var tag: CName;
 	var inv: CInventoryComponent;
-	var i, dif: int;
 		
 	inv = thePlayer.GetInventory();
 
@@ -57,28 +56,8 @@ function scaleItemLevel(item : SItemUniqueId) : int
 		return 1;
 	}
 	
-	dif = GetWitcherPlayer().GetLevel() - inv.GetItemLevel(item);
-	
-	if (dif > 0)
-	{
-		for (i = 0; i < dif; i += 1)
-			inv.AddItemCraftedAbility(item, tag, true);
-	}
-	else if (dif < 0 && getSettingToggle('ILS_Downscale'))
-	{
-		for (i = 0; i < dif * -1; i += 1)
-			inv.RemoveItemCraftedAbility(item, tag);
-	}
-	
-	// old scaling
-	/*while (inv.GetItemLevel(item) < GetWitcherPlayer().GetLevel())
+	while (inv.GetItemLevel(item) < GetWitcherPlayer().GetLevel())
 		inv.AddItemCraftedAbility(item, tag, true);
-	
-	if (getSettingToggle('ILS_Downscale'))
-	{
-		while (inv.GetItemLevel(item) > GetWitcherPlayer().GetLevel())
-			inv.RemoveItemCraftedAbility(item, tag);
-	}*/
 	
 	LogChannel('ILS', "Scaling " + inv.GetItemName(item) + " END");
 	return 0;
@@ -87,7 +66,7 @@ function scaleItemLevel(item : SItemUniqueId) : int
 
 function itemLevelScaleHandling() : int
 {
-	var i, option: int;
+	var i: int;
 	var items: array<SItemUniqueId>;
 	var inv: CInventoryComponent;
 	
@@ -101,21 +80,16 @@ function itemLevelScaleHandling() : int
 	
 	inv = thePlayer.GetInventory();
 	
-	option = getSettingOptions('ILS_Scope');
-	if (option == 0)
-		inv.GetAllItems(items);
-	if (option == 1)
+	i = getSettingOptions('ILS_Scope');
+	if (i == 0)
 		items = GetWitcherPlayer().GetEquippedItems();
-	else if (option == 2)
+	else if (i == 1)
 		inv.GetAllItems(items);
-	else if (option == 3)
+	else if (i == 2)
 		items = inv.GetItemsByTag('scalable');
 	
 	for (i = 0 ; i < items.Size(); i += 1)
 	{
-		if (option == 2 && inv.GetItemQuality(items[i]) != 5)
-			continue;
-		
 		scaleItemLevel(items[i]);
 	}
 	
@@ -126,7 +100,7 @@ function itemLevelScaleHandling() : int
 
 function singleItemLevelScaleHandling(item: SItemUniqueId) : int
 {
-	var option : int;
+	var i : int;
 	var inv: CInventoryComponent;
 
 	LogChannel('ILS', "Single item scaling");
@@ -139,15 +113,13 @@ function singleItemLevelScaleHandling(item: SItemUniqueId) : int
 	
 	inv = thePlayer.GetInventory();
 	
-	option = getSettingOptions('ILS_Scope');
-	if (option == 1 && !GetWitcherPlayer().IsItemEquipped(item))
+	i = getSettingOptions('ILS_Scope');
+	if (i == 0 && !GetWitcherPlayer().IsItemEquipped(item))
 	{
 		LogChannel('ILS', "Item out of scope (0)");
 		return 1;
 	}
-	else if (option == 2 && inv.GetItemQuality(item) != 5)
-		return 1;
-	else if (option == 3 && !inv.ItemHasTag(item, 'scalable'))
+	else if (i == 2 && !inv.ItemHasTag(item, 'scalable'))
 	{
 		LogChannel('ILS', "Item out of scope (2)");
 		return 1;

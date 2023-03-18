@@ -4,22 +4,17 @@
 		<VisibleVars>
 			<Var id="ILS_Enable" displayName="ILS_Enable" displayType="TOGGLE"/>
 
-			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
-			
-			<Var id="ILS_Downscale" displayName="ILS_Downscale" displayType="TOGGLE"/>
-			
-			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+			<!-- <Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/> -->
 			
 			<Var id="ILS_Scope" displayName="ILS_Scope" displayType="OPTIONS">
 				<OptionsArray>
-					<Option id="0" displayName="ILS_Inventory"><Entry varId="ILS_Scope" value="0"/></Option>
-					<Option id="1" displayName="ILS_Equipped"><Entry varId="ILS_Scope" value="1"/></Option>
-					<Option id="2" displayName="ILS_WitcherGear"><Entry varId="ILS_Scope" value="2"/></Option>
-					<Option id="3" displayName="ILS_Custom"><Entry varId="ILS_Scope" value="3"/></Option>
+					<Option id="0" displayName="ILS_Equipped"><Entry varId="ILS_Scope" value="0"/></Option>
+					<Option id="1" displayName="ILS_Inventory"><Entry varId="ILS_Scope" value="1"/></Option>
+					<Option id="2" displayName="ILS_Custom"><Entry varId="ILS_Scope" value="2"/></Option>
 				</OptionsArray>
 			</Var>
 			
-			<Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/>
+			<!-- <Var id="Separator" displayName="" displayType="SUBTLE_SEPARATOR"/> -->
 
 			<Var id="ILS_Swords" displayName="ILS_Swords" displayType="TOGGLE"/>
 			<Var id="ILS_Armor" displayName="ILS_Armor" displayType="TOGGLE"/>
